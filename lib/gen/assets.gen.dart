@@ -20,6 +20,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/Google.png
   AssetGenImage get google => const AssetGenImage('assets/images/Google.png');
 
+  /// File path: assets/images/Group.svg
+  String get group => 'assets/images/Group.svg';
+
   /// File path: assets/images/eye-slash.svg
   String get eyeSlash => 'assets/images/eye-slash.svg';
 
@@ -42,20 +45,30 @@ class $AssetsImagesGen {
   AssetGenImage get onbording4 =>
       const AssetGenImage('assets/images/onbording4.png');
 
+  /// File path: assets/images/passowrdImage.png
+  AssetGenImage get passowrdImage =>
+      const AssetGenImage('assets/images/passowrdImage.png');
+
   /// File path: assets/images/sms.svg
   String get sms => 'assets/images/sms.svg';
+
+  /// File path: assets/images/user.svg
+  String get user => 'assets/images/user.svg';
 
   /// List of all assets
   List<dynamic> get values => [
     evently,
     google,
+    group,
     eyeSlash,
     lock,
     onbording1,
     onbording2,
     onbording3,
     onbording4,
+    passowrdImage,
     sms,
+    user,
   ];
 }
 

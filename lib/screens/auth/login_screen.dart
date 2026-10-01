@@ -1,6 +1,9 @@
 import 'package:evently_app/gen/assets.gen.dart';
+import 'package:evently_app/screens/auth/forget_password.dart';
+import 'package:evently_app/screens/auth/register_screen.dart';
 import 'package:evently_app/theme/app_color.dart';
  import 'package:evently_app/views/custom_login_text_filed.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -62,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (p0 == null || p0.isEmpty) {
                         return " password is requirded";
                       }
-                      if (p0.length > 8) {
+                      if (p0.length < 8) {
                         return "password must be at least 8";
                       } else {
                         return null;
@@ -80,14 +83,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   Row(
                     mainAxisAlignment: .end,
                     children: [
-                      Text(
-                        "Forget Password?",
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          color: Theme.of(context).primaryColor,
-                          decoration: TextDecoration.underline,
-                          decorationColor: Theme.of(context).primaryColor,
-                          decorationThickness: 2,
-                        ), //Don’t have an account ? Signup
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context,ForgetPassword.appRoute);
+                        },
+                        child: Text(
+                          "Forget Password?",
+                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            color: Theme.of(context).primaryColor,
+                            decoration: TextDecoration.underline,
+                            decorationColor: Theme.of(context).primaryColor,
+                            decorationThickness: 2,
+                            fontStyle: FontStyle.italic
+                          ), //Don’t have an account ? Signup
+                        ),
                       ),
                     ],
                   ),
@@ -114,50 +123,50 @@ class _LoginScreenState extends State<LoginScreen> {
                           "Login",
                           style: TextStyle(
                             color: AppColors.whiteText,
-                           
+                           fontSize: 24,
                           ),
                         ),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 10),
-                    child: Row(
-                      spacing: 0,
-                      children: [
-                        Text(
-                          "Don’t have an account ?",
-                          style: Theme.of(context).textTheme.bodyMedium!
-                              .copyWith(fontSize: 16),
-                        ),
-                        TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            "Signup",
-                            style: Theme.of(context).textTheme.bodyLarge!
-                                .copyWith(
-                                  color: Theme.of(context).primaryColor,
-                                  decoration: TextDecoration.underline,
-                                  decorationColor: Theme.of(context).primaryColor,
-                                  decorationThickness: 2,
-                                ),
-                          ),
-                        ),
-                        
-                      ],
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: RichText(text: TextSpan(children: [
+                                       TextSpan(
+                       text: 
+                                "Don’t have an account ?",
+                                style: Theme.of(context).textTheme.bodyMedium!
+                                    .copyWith(fontSize: 18),
+                              
+                                       ),TextSpan(text:  "Signup",
+                                style: Theme.of(context).textTheme.bodyLarge!
+                                    .copyWith(fontSize: 18,
+                                      color: Theme.of(context).primaryColor,
+                                      decoration: TextDecoration.underline,
+                                      decorationColor: Theme.of(context).primaryColor,
+                                      decorationThickness: 2,
+                                    ),recognizer: TapGestureRecognizer()..onTap=() {
+                                      Navigator.pushNamed(context, RegisterScreen.appRoute);
+                                    })
+                      
+                      ])),
                     ),
-                  ), Row(
+                  
+                  ), Row(spacing: 20,
                      mainAxisAlignment: .center,
                       children: [
+                        Expanded(child: Divider(color: Theme.of(context).focusColor,)),
                         Text(
                           "Or",
                           style: Theme.of(context).textTheme.bodyMedium!
-                              .copyWith(fontSize: 18,fontWeight: FontWeight.w500,color: Theme.of(context).primaryColor)
+                              .copyWith(fontSize: 20,fontWeight: FontWeight.w500,color: Theme.of(context).primaryColor)
                               
-                        )]),
+                        ),                        Expanded(child: Divider(color: Theme.of(context).focusColor,)),
+                  ]),
                 
                    Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20.0),
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: SizedBox(
                       width: double.infinity,
                       height: 50,

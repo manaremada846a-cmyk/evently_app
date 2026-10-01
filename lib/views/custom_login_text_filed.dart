@@ -30,6 +30,9 @@ class _CustomLoginTextFiledState extends State<CustomLoginTextFiled> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onTapOutside: (event) {
+        FocusScope.of(context).unfocus();
+      },
       validator: widget.validator,
       obscureText: isPasswordEnable,
       decoration: InputDecoration(

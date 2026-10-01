@@ -17,9 +17,10 @@ class AppTheme {
     ),
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.lightBackground,
-      foregroundColor:AppColors.lightprimary,
+      foregroundColor:Colors.black,
       centerTitle: true,
       elevation: 0,
+      
     ),
     textTheme: TextTheme(
       headlineLarge: AppTextStyle.styleS24W700.copyWith(color: AppColors.lightText),
