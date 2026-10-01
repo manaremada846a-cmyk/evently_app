@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
+    cardColor: AppColors.inputlight,
+    focusColor: AppColors.strokelight,
+     hintColor: AppColors.lightText,
+     hoverColor: AppColors.lightprimary,
     brightness: Brightness.light,
     primaryColor:AppColors.lightprimary ,
     scaffoldBackgroundColor: AppColors.lightBackground,
@@ -19,13 +23,17 @@ class AppTheme {
     ),
     textTheme: TextTheme(
       headlineLarge: AppTextStyle.styleS24W700.copyWith(color: AppColors.lightText),
-      headlineMedium:  AppTextStyle.styleS20W600.copyWith(color: AppColors.lightText),
+      headlineMedium:  AppTextStyle.styleS30W600.copyWith(color: AppColors.lightText),
 bodyLarge: AppTextStyle.styleS16W500.copyWith( color:  AppColors.lightText),   
-   bodyMedium: AppTextStyle.styleS16W400.copyWith( color:  AppColors.lightText),   
+   bodyMedium: AppTextStyle.  styleS14W400 .copyWith( color:  AppColors.lightText),   
     ),
   );
   static ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
+   hintColor: AppColors.darkText,
+    hoverColor: AppColors.whiteText,
+     cardColor: AppColors.inputDark,
+    focusColor: AppColors.strokeDark,
     primaryColor:AppColors.darkprimary ,
     scaffoldBackgroundColor: AppColors.darkBackground,
     colorScheme: ColorScheme.fromSeed(
@@ -34,17 +42,19 @@ bodyLarge: AppTextStyle.styleS16W500.copyWith( color:  AppColors.lightText),
       
     ),
     appBarTheme: const AppBarTheme(
+      
       backgroundColor: AppColors.darkBackground,
       foregroundColor:AppColors.darkprimary,
       centerTitle: true,
       elevation: 0,
     ),
     textTheme: TextTheme(
+      
       headlineLarge: AppTextStyle.styleS24W700.copyWith(color: AppColors.darkText),
-      headlineMedium:  AppTextStyle.styleS20W600.copyWith(color: AppColors.darkText),
+      headlineMedium:  AppTextStyle.styleS30W600.copyWith(color: AppColors.darkText),
 bodyLarge: AppTextStyle.styleS16W500.copyWith(
   color: AppColors.darkText,
-),   bodyMedium: AppTextStyle.styleS16W400.copyWith( color:  AppColors.darkText),   
+),   bodyMedium: AppTextStyle.  styleS14W400.copyWith( color:  AppColors.darkText),   
     ),
   );
 }

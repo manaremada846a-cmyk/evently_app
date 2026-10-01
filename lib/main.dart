@@ -1,3 +1,4 @@
+import 'package:evently_app/screens/auth/login_screen.dart';
 import 'package:evently_app/screens/onbording_Screen.dart';
 import 'package:evently_app/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +14,11 @@ class MyApp extends StatelessWidget {
   Widget build(Object context) {
    return MaterialApp(  theme: AppTheme.lightTheme,
     debugShowCheckedModeBanner: false,
-    
-    home: OnBordingScreen(),
+    routes: {
+      LoginScreen.appRoute:(context) => LoginScreen(),
+       OnBordingScreen.appRoute:(context) => OnBordingScreen(),
+    },
+    home: LoginScreen(),
    );
     
   }

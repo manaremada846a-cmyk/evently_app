@@ -14,8 +14,17 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  /// File path: assets/images/eventlyImage.svg
-  String get eventlyImage => 'assets/images/eventlyImage.svg';
+  /// File path: assets/images/EVENTLY.png
+  AssetGenImage get evently => const AssetGenImage('assets/images/EVENTLY.png');
+
+  /// File path: assets/images/Google.png
+  AssetGenImage get google => const AssetGenImage('assets/images/Google.png');
+
+  /// File path: assets/images/eye-slash.svg
+  String get eyeSlash => 'assets/images/eye-slash.svg';
+
+  /// File path: assets/images/lock.svg
+  String get lock => 'assets/images/lock.svg';
 
   /// File path: assets/images/onbording1.png
   AssetGenImage get onbording1 =>
@@ -33,13 +42,20 @@ class $AssetsImagesGen {
   AssetGenImage get onbording4 =>
       const AssetGenImage('assets/images/onbording4.png');
 
+  /// File path: assets/images/sms.svg
+  String get sms => 'assets/images/sms.svg';
+
   /// List of all assets
   List<dynamic> get values => [
-    eventlyImage,
+    evently,
+    google,
+    eyeSlash,
+    lock,
     onbording1,
     onbording2,
     onbording3,
     onbording4,
+    sms,
   ];
 }
 
