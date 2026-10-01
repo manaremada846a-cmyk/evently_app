@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class OnBordingScreen extends StatefulWidget {
   const new({super.key});
-
+static String appRoute="onbordingScreen";
   @override
   State<OnBordingScreen> createState() => _OnBordingScreenState();
 }
@@ -26,8 +26,7 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
             child: Column(spacing: 15,
               children: [
                
-SvgPicture.asset(Assets.images.eventlyImage)   ,
-
+  
         
          ],),
           ),
