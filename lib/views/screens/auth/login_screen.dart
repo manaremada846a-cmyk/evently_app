@@ -1,8 +1,12 @@
 import 'package:evently_app/gen/assets.gen.dart';
-import 'package:evently_app/screens/auth/forget_password.dart';
-import 'package:evently_app/screens/auth/register_screen.dart';
+import 'package:evently_app/model/user_model.dart';
+import 'package:evently_app/services/firebase_auth_service.dart';
+import 'package:evently_app/views/screens/auth/forget_password.dart';
+import 'package:evently_app/views/screens/auth/register_screen.dart';
 import 'package:evently_app/theme/app_color.dart';
- import 'package:evently_app/views/custom_login_text_filed.dart';
+import 'package:evently_app/common/widgets/custom_login_text_filed.dart';
+import 'package:evently_app/views/screens/home_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,9 +18,10 @@ class LoginScreen extends StatefulWidget {
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
-
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
+  final TextEditingController emailcontroller = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,12 +34,11 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 spacing: 10,
                 crossAxisAlignment: .start,
-              
                 children: [
                   Center(child: Image.asset(Assets.images.evently.path)),
-              
+
                   Padding(
-                    padding: const EdgeInsets.only(top: 30.0,bottom: 15),
+                    padding: const EdgeInsets.only(top: 30.0, bottom: 15),
                     child: Text(
                       "Login to your account",
                       style: Theme.of(context).textTheme.headlineMedium!
@@ -53,6 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       isPassword: false,
                       context: context,
+                      controller: emailcontroller,
                       label: "Enter your email",
                       prefix: Padding(
                         padding: const EdgeInsets.all(10),
@@ -73,44 +78,62 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     isPassword: true,
                     context: context,
+                    controller: passwordController,
                     label: "Enter your password",
                     prefix: Padding(
                       padding: const EdgeInsets.all(10),
                       child: SvgPicture.asset(Assets.images.lock),
                     ),
                   ),
-              
                   Row(
                     mainAxisAlignment: .end,
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context,ForgetPassword.appRoute);
+                          Navigator.pushNamed(context, ForgetPassword.appRoute);
                         },
                         child: Text(
                           "Forget Password?",
-                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            color: Theme.of(context).primaryColor,
-                            decoration: TextDecoration.underline,
-                            decorationColor: Theme.of(context).primaryColor,
-                            decorationThickness: 2,
-                            fontStyle: FontStyle.italic
-                          ), //Don’t have an account ? Signup
+                          style: Theme.of(context).textTheme.bodyLarge!
+                              .copyWith(
+                                color: Theme.of(context).primaryColor,
+                                decoration: TextDecoration.underline,
+                                decorationColor: Theme.of(context).primaryColor,
+                                decorationThickness: 2,
+                                fontStyle: FontStyle.italic,
+                              ), //Don’t have an account ? Signup
                         ),
                       ),
                     ],
                   ),
-              
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 30),
                     child: SizedBox(
                       width: double.infinity,
                       height: 50,
                       child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           bool isValid = _globalKey.currentState!.validate();
                           if (isValid) {
-                            //navigation
+                            final loginModel = UserModel(
+                              email: emailcontroller.text,
+                              password: passwordController.text.trim(),
+                            );
+                            try {
+                              await FirebaseAuthService().login(loginModel);
+                              if (!context.mounted) return;
+                              Navigator.pushReplacementNamed(
+                                context,
+                                HomeScreen.appRoute,
+                              );
+                            } on FirebaseAuthException catch (e) {
+                              if (!context.mounted) return;
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(e.message ?? "Login failed"),
+                                ),
+                              );
+                            }//navigation
                           }
                         },
                         style: ElevatedButton.styleFrom(
@@ -123,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           "Login",
                           style: TextStyle(
                             color: AppColors.whiteText,
-                           fontSize: 24,
+                            fontSize: 24,
                           ),
                         ),
                       ),
@@ -132,70 +155,93 @@ class _LoginScreenState extends State<LoginScreen> {
                   Center(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: RichText(text: TextSpan(children: [
-                                       TextSpan(
-                       text: 
-                                "Don’t have an account ?",
-                                style: Theme.of(context).textTheme.bodyMedium!
-                                    .copyWith(fontSize: 18),
-                              
-                                       ),TextSpan(text:  "Signup",
-                                style: Theme.of(context).textTheme.bodyLarge!
-                                    .copyWith(fontSize: 18,
-                                      color: Theme.of(context).primaryColor,
-                                      decoration: TextDecoration.underline,
-                                      decorationColor: Theme.of(context).primaryColor,
-                                      decorationThickness: 2,
-                                    ),recognizer: TapGestureRecognizer()..onTap=() {
-                                      Navigator.pushNamed(context, RegisterScreen.appRoute);
-                                    })
-                      
-                      ])),
+                      child: RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "Don’t have an account ?",
+                              style: Theme.of(context).textTheme.bodyMedium!
+                                  .copyWith(fontSize: 18),
+                            ),
+                            TextSpan(
+                              text: "Signup",
+                              style: Theme.of(context).textTheme.bodyLarge!
+                                  .copyWith(
+                                    fontSize: 18,
+                                    color: Theme.of(context).primaryColor,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: Theme.of(context)
+                                        .primaryColor,
+                                    decorationThickness: 2,
+                                  ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    RegisterScreen.appRoute,
+                                  );
+                                },
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                  
-                  ), Row(spacing: 20,
-                     mainAxisAlignment: .center,
-                      children: [
-                        Expanded(child: Divider(color: Theme.of(context).focusColor,)),
-                        Text(
-                          "Or",
-                          style: Theme.of(context).textTheme.bodyMedium!
-                              .copyWith(fontSize: 20,fontWeight: FontWeight.w500,color: Theme.of(context).primaryColor)
-                              
-                        ),                        Expanded(child: Divider(color: Theme.of(context).focusColor,)),
-                  ]),
-                
-                   Padding(
+                  ),
+                  Row(
+                    spacing: 20,
+                    mainAxisAlignment: .center,
+                    children: [
+                      Expanded(
+                        child: Divider(color: Theme.of(context).focusColor),
+                      ),
+                      Text(
+                        "Or",
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                      Expanded(
+                        child: Divider(color: Theme.of(context).focusColor),
+                      ),
+                    ],
+                  ),
+
+                  Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: SizedBox(
                       width: double.infinity,
                       height: 50,
                       child: ElevatedButton(
-                        onPressed: () {
-                          
-                        },
+                        onPressed: () {},
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Theme.of(context).cardColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(18)),
                           ),
                         ),
-                        child: Row(spacing: 15,
-                        mainAxisAlignment: .center,
+                        child: Row(
+                          spacing: 15,
+                          mainAxisAlignment: .center,
                           children: [
-                            Image.asset(Assets.images.google.path,width: 26,height: 26,),
+                            Image.asset(
+                              Assets.images.google.path,
+                              width: 26,
+                              height: 26,
+                            ),
                             Text(
                               "Login with Google",
                               style: TextStyle(
                                 color: Theme.of(context).primaryColor,
-                               fontSize: 18
-                                 
+                                fontSize: 18,
                               ),
                             ),
                           ],
                         ),
                       ),
-                    ))
+                    ),
+                  ),
                 ],
               ),
             ),

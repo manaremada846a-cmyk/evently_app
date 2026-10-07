@@ -33,7 +33,7 @@ height: 50,
                           ),
                           child: Text(
                             "Reset password",
-                            style: TextStyle(
+                            style: TextStyle(fontSize: 24,
                               color: AppColors.whiteText,
                              
                             ),

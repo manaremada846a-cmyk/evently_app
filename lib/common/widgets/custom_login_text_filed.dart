@@ -6,19 +6,21 @@ class CustomLoginTextFiled extends StatefulWidget {
     required this.context,
     this.label,
     this.prefix,
-    this.isPassword = false, this.validator,
+    this.isPassword = false, this.validator, this.controller,
   });
 
   final BuildContext context;
   final String? label;
   final Widget? prefix;
   final bool isPassword;
+  final  TextEditingController? controller;
 final String? Function(String?)? validator;
   @override
   State<CustomLoginTextFiled> createState() => _CustomLoginTextFiledState();
 }
 
 class _CustomLoginTextFiledState extends State<CustomLoginTextFiled> {
+
   late bool isPasswordEnable;
 
   @override
@@ -30,6 +32,7 @@ class _CustomLoginTextFiledState extends State<CustomLoginTextFiled> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller:widget. controller ,
       onTapOutside: (event) {
         FocusScope.of(context).unfocus();
       },
