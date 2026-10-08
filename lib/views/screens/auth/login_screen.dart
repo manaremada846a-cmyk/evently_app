@@ -48,12 +48,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20),
                     child: CustomLoginTextFiled(
-                      validator: (p0) {
-                        if (p0 == null || p0.isEmpty) {
-                          return "email is requirded";
-                        } else {
-                          return null;
-                        }
+                     validator: (p0) {
+  final email = p0?.trim() ?? '';
+  if (email.isEmpty) {
+    return "email is required";
+  }
+  final emailRegex = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
+  if (!emailRegex.hasMatch(email)) {
+    return "enter a valid email";
+  }
+  return null;
+
                       },
                       isPassword: false,
                       context: context,
@@ -116,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           bool isValid = _globalKey.currentState!.validate();
                           if (isValid) {
                             final loginModel = UserModel(
-                              email: emailcontroller.text,
+                              email: emailcontroller.text.trim(),
                               password: passwordController.text.trim(),
                             );
                             try {
@@ -133,7 +138,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                   content: Text(e.message ?? "Login failed"),
                                 ),
                               );
-                            }//navigation
+                            } catch (e) {
+                              // أي خطأ تاني (Firestore, شبكة، ...)
+                              if (!context.mounted) return;
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    "Something went wrong, please try again",
+                                  ),
+                                ),
+                              );
+                            } //navigation
                           }
                         },
                         style: ElevatedButton.styleFrom(

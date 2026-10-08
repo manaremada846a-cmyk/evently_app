@@ -15,14 +15,15 @@ class FirebaseAuthService {
       user.id = credential.user?.uid;
 
       UserModel? userData = await getUserInfo(credential.user!.uid);
-      log("sucess");
-      return userData!;
+      log("success");
+      return userData;
     } catch (e) {
       log(">>>>>>>>>--$e");
+      rethrow; // يوصل الخطأ للشاشة بدل ما يتبلع
     }
   }
 
-  //regisret
+  //register
   static Future<void> register(UserModel user) async {
     try {
       UserCredential credential = await FirebaseAuth.instance
@@ -36,6 +37,7 @@ class FirebaseAuthService {
       log(">>>>>>>>>--success");
     } catch (e) {
       log(">>>>>>>>>$e");
+      rethrow; // نفس الفكرة: الشاشة لازم تعرف إن التسجيل فشل
     }
   }
 

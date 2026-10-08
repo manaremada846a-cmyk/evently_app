@@ -5,6 +5,7 @@ import 'package:evently_app/views/screens/auth/login_screen.dart';
 import 'package:evently_app/views/screens/auth/register_screen.dart';
 import 'package:evently_app/views/screens/onBording_screen.dart'; 
 import 'package:evently_app/views/screens/home_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
  
@@ -18,7 +19,10 @@ void main()async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+bool isLoading(){
+  return  FirebaseAuth.instance.currentUser == null?false:true;
 
+}
   @override
   Widget build(Object context) {
    return MaterialApp( 
@@ -31,7 +35,7 @@ class MyApp extends StatelessWidget {
        OnBordingScreen.appRoute:(context) => OnBordingScreen(),
         HomeScreen.appRoute:(context) => HomeScreen(),
     },
-    home: LoginScreen(),
+    home:isLoading()? HomeScreen(): LoginScreen(),
    );
     
   }
