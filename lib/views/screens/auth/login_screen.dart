@@ -120,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               password: passwordController.text.trim(),
                             );
                             try {
-                              await FirebaseAuthService().login(loginModel);
+                              await FirebaseAuthService.login(loginModel);
                               if (!context.mounted) return;
                               Navigator.pushReplacementNamed(
                                 context,

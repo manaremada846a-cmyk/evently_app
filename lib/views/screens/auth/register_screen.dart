@@ -153,7 +153,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   );
 
   try {
-    await FirebaseAuthService().registration(registerModal);
+    await FirebaseAuthService.register(registerModal);
 
     if (!context.mounted) return;
 
