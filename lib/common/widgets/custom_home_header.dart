@@ -1,48 +1,59 @@
+
 import 'package:evently_app/common/widgets/header_bottom_cards.dart';
 import 'package:evently_app/theme/app_color.dart';
-  import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
-class CustomHomeHeader extends StatelessWidget implements PreferredSizeWidget {
+class CustomHomeHeader extends StatefulWidget
+    implements PreferredSizeWidget {
   const CustomHomeHeader({super.key});
+
+  @override
+  Size get preferredSize => const Size.fromHeight(200);
+
+  @override
+  State<CustomHomeHeader> createState() => _CustomHomeHeaderState();
+}
+
+class _CustomHomeHeaderState extends State<CustomHomeHeader> {
+  String selectedCategory = 'All';
  
   @override
   Widget build(BuildContext context) {
-    
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.only(top: 20,left: 20,right: 20),
       child: SafeArea(
-        child: Container(
-          width: preferredSize.width,
-          height: 150,
-          decoration: BoxDecoration(),
-
-          child: Column(spacing: 0,
+        child: SizedBox(
+          height: 120,
+          child: Column(
+            spacing: 15,
             children: [
               Row(
                 children: [
                   Column(
                     spacing: 7,
-                    crossAxisAlignment: .start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Welcome Back ✨"),
+                      const Text('Welcome Back ✨'),
                       Text(
-                        "name",
-                        style: Theme.of(context).textTheme.bodyLarge!
-                            .copyWith(fontSize: 20)
-                            .copyWith(color: Theme.of(context).splashColor),
+                        'name',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .copyWith(
+                              fontSize: 20,
+                              color: Theme.of(context).splashColor,
+                            ),
                       ),
                     ],
                   ),
-
-                  Spacer(),
+                  const Spacer(),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 25),
                     child: Row(
                       spacing: 10,
-                      
-                      crossAxisAlignment: .center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Icon(   
+                        Icon(
                           Icons.wb_sunny_outlined,
                           size: 25,
                           color: Theme.of(context).primaryColor,
@@ -52,21 +63,25 @@ class CustomHomeHeader extends StatelessWidget implements PreferredSizeWidget {
                           height: 32,
                           child: FilledButton(
                             onPressed: () {},
-                            style: FilledButton.styleFrom( padding: EdgeInsets.zero,
-                          minimumSize: Size.zero,
-                          alignment: Alignment.center,
+                            style: FilledButton.styleFrom(
+                              padding: EdgeInsets.zero,
+                              minimumSize: Size.zero,
+                              alignment: Alignment.center,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8),
-                                ),
+                                borderRadius: BorderRadius.circular(8),
                               ),
-                              backgroundColor: Theme.of(context).primaryColor,
+                              backgroundColor:
+                                  Theme.of(context).primaryColor,
                             ),
                             child: Text(
-                              "EN",
-                              style: Theme.of(context).textTheme.headlineMedium!
-                                  .copyWith(fontSize: 14)
-                                  .copyWith(color: AppColors.whiteText),
+                              'EN',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineMedium!
+                                  .copyWith(
+                                    fontSize: 14,
+                                    color: AppColors.whiteText,
+                                  ),
                             ),
                           ),
                         ),
@@ -74,45 +89,82 @@ class CustomHomeHeader extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   ),
                 ],
-              ),
-              
+              ), 
               Expanded(
                 child: ListView(
-                  scrollDirection:  Axis.horizontal,
-
-                  
-                    children: [
-                      HeaderBottomCards(
-                        label: "All",
-                        icon:Icons.grid_view_rounded,
-                        selected: true,
-                        onSelected: () {},
-                      ),SizedBox(width: 5,), HeaderBottomCards(
-                        label: "Sport",
-                        //	Icons.pedal_bike أو Icons.directions_bike
-                        icon: Icons.directions_bike_outlined,
-                        selected: false,
-                        onSelected: () {},
-                      ),SizedBox(width: 5,), HeaderBottomCards(
-                        label: "Birthday",
-                        icon: 	Icons.cake_outlined,
-                        selected: false,
-                        onSelected: () {},
-                      ),SizedBox(width: 5,), HeaderBottomCards(
-                        label: "Categories",
-                        icon: Icons.access_time_filled,
-                        selected: false,
-                        onSelected: () {},
-                      ),SizedBox(width: 5,), HeaderBottomCards(
-                        label: "All",
-                        icon: Icons.access_time_filled,
-                        selected: false,
-                        onSelected: () {},
-                      ), 
-                    ],
-                  
-                  
-                  
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    HeaderBottomCards(
+                 
+                      label: 'All',
+                      icon: Icons.grid_view_rounded,
+                      selected: selectedCategory == 'All',
+                      onSelected: () {
+                        setState(() {
+                          selectedCategory = 'All';
+                        });
+                      },
+                    ),
+                    const SizedBox(width: 5),
+                    HeaderBottomCards(
+                    
+                      label: 'Sport',
+                      icon: Icons.directions_bike_outlined,
+                      selected: selectedCategory == 'Sport',
+                      onSelected: () {
+                        setState(() {
+                          selectedCategory = 'Sport';
+                        });
+                      },
+                    ),
+                    const SizedBox(width: 5),
+                    HeaderBottomCards(
+                     
+                      label: 'Birthday',
+                      icon: Icons.cake_outlined,
+                      selected: selectedCategory == 'Birthday',
+                      onSelected: () {
+                        setState(() {
+                          selectedCategory = 'Birthday';
+                        });
+                      },
+                    ),
+                    const SizedBox(width: 5),
+                    HeaderBottomCards(
+                    
+                      label: 'Categories',
+                      icon: Icons.access_time_filled,
+                      selected: selectedCategory == 'Categories',
+                      onSelected: () {
+                        setState(() {
+                          selectedCategory = 'Categories';
+                        });
+                      },
+                    ),
+                     const SizedBox(width: 5),
+                    HeaderBottomCards(
+                    
+                      label: 'Meeting',
+                      icon: Icons.meeting_room_outlined,
+                      selected: selectedCategory == 'Meeting',
+                      onSelected: () {
+                        setState(() {
+                          selectedCategory = 'Meeting';
+                        });
+                      },
+                    ), const SizedBox(width: 5),
+                    HeaderBottomCards(
+                    
+                      label: 'Exhibition',
+                      icon: Icons.store,
+                      selected: selectedCategory ==  'Exhibition',
+                      onSelected: () {
+                        setState(() {
+                          selectedCategory =  'Exhibition';
+                        });
+                      },
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -121,7 +173,4 @@ class CustomHomeHeader extends StatelessWidget implements PreferredSizeWidget {
       ),
     );
   }
-
-  @override
-  Size get preferredSize => Size(AppBar().preferredSize.width, 200);
 }

@@ -7,9 +7,9 @@ class HeaderBottomCards extends StatelessWidget {
     required this.label,
     required this.icon,
     required this.selected,
-    required this.onSelected,
+    required this.onSelected, 
   });
-
+ 
   final String label;
   final IconData icon;
   final bool selected;

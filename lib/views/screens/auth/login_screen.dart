@@ -5,7 +5,8 @@ import 'package:evently_app/views/screens/auth/forget_password.dart';
 import 'package:evently_app/views/screens/auth/register_screen.dart';
 import 'package:evently_app/theme/app_color.dart';
 import 'package:evently_app/common/widgets/custom_login_text_filed.dart';
-import 'package:evently_app/views/screens/home_screen.dart';
+import 'package:evently_app/views/screens/tabs_screen.dart';
+import 'package:evently_app/views/tabs/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -129,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               if (!context.mounted) return;
                               Navigator.pushReplacementNamed(
                                 context,
-                                HomeScreen.appRoute,
+                                TabsScreen.appRoute,
                               );
                             } on FirebaseAuthException catch (e) {
                               if (!context.mounted) return;

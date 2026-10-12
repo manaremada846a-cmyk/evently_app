@@ -31,6 +31,14 @@ class $AssetsImagesGen {
   AssetGenImage get routeLog02 =>
       const AssetGenImage('assets/images/Route log02.png');
 
+  /// File path: assets/images/Sport (2).png
+  AssetGenImage get sport2 =>
+      const AssetGenImage('assets/images/Sport (2).png');
+
+  /// File path: assets/images/Sporttext.png
+  AssetGenImage get sporttext =>
+      const AssetGenImage('assets/images/Sporttext.png');
+
   /// File path: assets/images/eye-slash.svg
   String get eyeSlash => 'assets/images/eye-slash.svg';
 
@@ -75,6 +83,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/splashimg.svg
   String get splashimg => 'assets/images/splashimg.svg';
 
+  /// File path: assets/images/sportboy.png
+  AssetGenImage get sportboy =>
+      const AssetGenImage('assets/images/sportboy.png');
+
   /// File path: assets/images/user.svg
   String get user => 'assets/images/user.svg';
 
@@ -85,6 +97,8 @@ class $AssetsImagesGen {
     group,
     routeLog01,
     routeLog02,
+    sport2,
+    sporttext,
     eyeSlash,
     lock,
     onbording1,
@@ -97,6 +111,7 @@ class $AssetsImagesGen {
     sms,
     splashImag2,
     splashimg,
+    sportboy,
     user,
   ];
 }
