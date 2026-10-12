@@ -23,6 +23,14 @@ class $AssetsImagesGen {
   /// File path: assets/images/Group.svg
   String get group => 'assets/images/Group.svg';
 
+  /// File path: assets/images/Route log01.png
+  AssetGenImage get routeLog01 =>
+      const AssetGenImage('assets/images/Route log01.png');
+
+  /// File path: assets/images/Route log02.png
+  AssetGenImage get routeLog02 =>
+      const AssetGenImage('assets/images/Route log02.png');
+
   /// File path: assets/images/eye-slash.svg
   String get eyeSlash => 'assets/images/eye-slash.svg';
 
@@ -45,12 +53,27 @@ class $AssetsImagesGen {
   AssetGenImage get onbording4 =>
       const AssetGenImage('assets/images/onbording4.png');
 
+  /// File path: assets/images/pageview2.png
+  AssetGenImage get pageview2 =>
+      const AssetGenImage('assets/images/pageview2.png');
+
   /// File path: assets/images/passowrdImage.png
   AssetGenImage get passowrdImage =>
       const AssetGenImage('assets/images/passowrdImage.png');
 
+  /// File path: assets/images/routeimage.png
+  AssetGenImage get routeimage =>
+      const AssetGenImage('assets/images/routeimage.png');
+
   /// File path: assets/images/sms.svg
   String get sms => 'assets/images/sms.svg';
+
+  /// File path: assets/images/splashImag2.png
+  AssetGenImage get splashImag2 =>
+      const AssetGenImage('assets/images/splashImag2.png');
+
+  /// File path: assets/images/splashimg.svg
+  String get splashimg => 'assets/images/splashimg.svg';
 
   /// File path: assets/images/user.svg
   String get user => 'assets/images/user.svg';
@@ -60,14 +83,20 @@ class $AssetsImagesGen {
     evently,
     google,
     group,
+    routeLog01,
+    routeLog02,
     eyeSlash,
     lock,
     onbording1,
     onbording2,
     onbording3,
     onbording4,
+    pageview2,
     passowrdImage,
+    routeimage,
     sms,
+    splashImag2,
+    splashimg,
     user,
   ];
 }

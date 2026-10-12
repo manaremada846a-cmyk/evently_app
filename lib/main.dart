@@ -3,8 +3,9 @@ import 'package:evently_app/theme/app_theme.dart';
 import 'package:evently_app/views/screens/auth/forget_password.dart';
 import 'package:evently_app/views/screens/auth/login_screen.dart';
 import 'package:evently_app/views/screens/auth/register_screen.dart';
-import 'package:evently_app/views/screens/onbording_screen.dart'; 
-import 'package:evently_app/views/screens/home_screen.dart';
+import 'package:evently_app/views/screens/onBording_screen.dart';
+ import 'package:evently_app/views/screens/home_screen.dart';
+import 'package:evently_app/views/screens/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -27,16 +28,17 @@ bool isLoading(){
   
   Widget build(Object context) {
    return MaterialApp( 
-     theme: AppTheme.lightTheme,
+     theme: AppTheme.darkTheme,
     debugShowCheckedModeBanner: false,
     routes: {
+      SplashScreen.appRoute:(context) => SplashScreen(),
       LoginScreen.appRoute:(context) => LoginScreen(),
      RegisterScreen.appRoute :(context) =>RegisterScreen(),
      ForgetPassword.appRoute:(context) => ForgetPassword(),
        OnBordingScreen.appRoute:(context) => OnBordingScreen(),
         HomeScreen.appRoute:(context) => HomeScreen(),
-    },initialRoute: OnBordingScreen.appRoute ,
-   // home:isLoading()? HomeScreen(): LoginScreen(),
+    },initialRoute: SplashScreen.appRoute ,
+  // home:isLoading()? HomeScreen(): LoginScreen(),
    //TODO
    );
     
