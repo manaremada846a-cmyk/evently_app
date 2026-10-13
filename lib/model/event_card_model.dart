@@ -4,6 +4,7 @@ class EventCardModel {
   String date;
   bool isFav;
   String discribtion;
+  
   EventCardModel({
     required this.getImageunder,
     required this.getImage,

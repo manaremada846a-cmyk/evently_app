@@ -1,4 +1,5 @@
 import 'package:evently_app/theme/app_color.dart';
+import 'package:evently_app/views/screens/event_screen.dart';
 import 'package:evently_app/views/tabs/favorite_screen.dart';
 import 'package:evently_app/views/tabs/home_screen.dart';
 import 'package:evently_app/views/tabs/profile_screen.dart';
@@ -23,8 +24,10 @@ class _TabsScreenState extends State<TabsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
   body: tabs[currentIndex],
-  floatingActionButton: ClipRRect(borderRadius: BorderRadius.circular(25),
-    child: FloatingActionButton(onPressed: (){},backgroundColor: Theme.of(context).primaryColor,child: Icon(Icons.add,color: AppColors.whiteText,))),
+  floatingActionButton: ClipRRect(borderRadius: BorderRadius.circular(30),
+    child: FloatingActionButton(onPressed: (){
+      Navigator.pushNamed(context, EventScreen.appRoute);
+    },backgroundColor: Theme.of(context).primaryColor,child: Icon(Icons.add,color: AppColors.whiteText,size: 30,))),
   bottomNavigationBar: Container(   decoration: BoxDecoration(
     borderRadius: BorderRadius.circular(25),
     ),

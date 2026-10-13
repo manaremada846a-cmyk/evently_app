@@ -1,10 +1,8 @@
-
 import 'package:evently_app/common/widgets/header_bottom_cards.dart';
 import 'package:evently_app/theme/app_color.dart';
 import 'package:flutter/material.dart';
 
-class CustomHomeHeader extends StatefulWidget
-    implements PreferredSizeWidget {
+class CustomHomeHeader extends StatefulWidget implements PreferredSizeWidget {
   const CustomHomeHeader({super.key});
 
   @override
@@ -16,11 +14,11 @@ class CustomHomeHeader extends StatefulWidget
 
 class _CustomHomeHeaderState extends State<CustomHomeHeader> {
   String selectedCategory = 'All';
- 
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20,left: 20,right: 20),
+      padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
       child: SafeArea(
         child: SizedBox(
           height: 120,
@@ -36,13 +34,10 @@ class _CustomHomeHeaderState extends State<CustomHomeHeader> {
                       const Text('Welcome Back ✨'),
                       Text(
                         'name',
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyLarge!
-                            .copyWith(
-                              fontSize: 20,
-                              color: Theme.of(context).splashColor,
-                            ),
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontSize: 20,
+                          color: Theme.of(context).splashColor,
+                        ),
                       ),
                     ],
                   ),
@@ -70,14 +65,11 @@ class _CustomHomeHeaderState extends State<CustomHomeHeader> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              backgroundColor:
-                                  Theme.of(context).primaryColor,
+                              backgroundColor: Theme.of(context).primaryColor,
                             ),
                             child: Text(
                               'EN',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineMedium!
+                              style: Theme.of(context).textTheme.headlineMedium!
                                   .copyWith(
                                     fontSize: 14,
                                     color: AppColors.whiteText,
@@ -89,13 +81,12 @@ class _CustomHomeHeaderState extends State<CustomHomeHeader> {
                     ),
                   ),
                 ],
-              ), 
+              ),
               Expanded(
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
                     HeaderBottomCards(
-                 
                       label: 'All',
                       icon: Icons.grid_view_rounded,
                       selected: selectedCategory == 'All',
@@ -107,7 +98,18 @@ class _CustomHomeHeaderState extends State<CustomHomeHeader> {
                     ),
                     const SizedBox(width: 5),
                     HeaderBottomCards(
-                    
+                      label: 'Book club',
+                      icon: Icons.menu_book_rounded,
+                      selected: selectedCategory == 'Bookclub',
+                      onSelected: () {
+                        setState(() {
+                          selectedCategory = 'Bookclub';
+                        });
+                      },
+                    ),
+
+                    const SizedBox(width: 5),
+                    HeaderBottomCards(
                       label: 'Sport',
                       icon: Icons.directions_bike_outlined,
                       selected: selectedCategory == 'Sport',
@@ -119,19 +121,17 @@ class _CustomHomeHeaderState extends State<CustomHomeHeader> {
                     ),
                     const SizedBox(width: 5),
                     HeaderBottomCards(
-                     
                       label: 'Birthday',
                       icon: Icons.cake_outlined,
                       selected: selectedCategory == 'Birthday',
                       onSelected: () {
                         setState(() {
                           selectedCategory = 'Birthday';
-                        });
+                        }); //Book club
                       },
                     ),
                     const SizedBox(width: 5),
                     HeaderBottomCards(
-                    
                       label: 'Categories',
                       icon: Icons.access_time_filled,
                       selected: selectedCategory == 'Categories',
@@ -141,9 +141,8 @@ class _CustomHomeHeaderState extends State<CustomHomeHeader> {
                         });
                       },
                     ),
-                     const SizedBox(width: 5),
+                    const SizedBox(width: 5),
                     HeaderBottomCards(
-                    
                       label: 'Meeting',
                       icon: Icons.meeting_room_outlined,
                       selected: selectedCategory == 'Meeting',
@@ -152,15 +151,15 @@ class _CustomHomeHeaderState extends State<CustomHomeHeader> {
                           selectedCategory = 'Meeting';
                         });
                       },
-                    ), const SizedBox(width: 5),
+                    ),
+                    const SizedBox(width: 5),
                     HeaderBottomCards(
-                    
                       label: 'Exhibition',
                       icon: Icons.store,
-                      selected: selectedCategory ==  'Exhibition',
+                      selected: selectedCategory == 'Exhibition',
                       onSelected: () {
                         setState(() {
-                          selectedCategory =  'Exhibition';
+                          selectedCategory = 'Exhibition';
                         });
                       },
                     ),

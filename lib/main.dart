@@ -3,6 +3,7 @@ import 'package:evently_app/theme/app_theme.dart';
 import 'package:evently_app/views/screens/auth/forget_password.dart';
 import 'package:evently_app/views/screens/auth/login_screen.dart';
 import 'package:evently_app/views/screens/auth/register_screen.dart';
+import 'package:evently_app/views/screens/event_screen.dart';
 import 'package:evently_app/views/screens/onBording_screen.dart';
 import 'package:evently_app/views/screens/tabs_screen.dart';
 import 'package:evently_app/views/screens/splash_screen.dart';
@@ -28,16 +29,17 @@ bool isLoading(){
   
   Widget build(Object context) {
    return MaterialApp( 
-     theme: AppTheme.lightTheme,
+     theme: AppTheme.darkTheme,
     debugShowCheckedModeBanner: false,
-    routes: {
+    routes: {//EventScreen
       SplashScreen.appRoute:(context) => SplashScreen(),
       LoginScreen.appRoute:(context) => LoginScreen(),
      RegisterScreen.appRoute :(context) =>RegisterScreen(),
      ForgetPassword.appRoute:(context) => ForgetPassword(),
        OnBordingScreen.appRoute:(context) => OnBordingScreen(),
        TabsScreen.appRoute:(context) =>  TabsScreen(),
-    },initialRoute:TabsScreen.appRoute ,
+      EventScreen .appRoute:(context) => EventScreen(),
+    },initialRoute:EventScreen.appRoute ,
   // home:isLoading()? HomeScreen(): LoginScreen(),
    //TODO
    );

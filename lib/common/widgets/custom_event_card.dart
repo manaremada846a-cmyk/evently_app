@@ -13,7 +13,7 @@ class _CustomEventCardState extends State<CustomEventCard> {
   Widget build(BuildContext context) {
     ThemeData them = Theme.of(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Container(
         width: 380,
         height: 220,
