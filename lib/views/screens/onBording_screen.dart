@@ -1,9 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+ 
+import 'package:evently_app/common/theme/app_color.dart';
 import 'package:evently_app/common/widgets/custom_page1.dart';
 import 'package:evently_app/model/onBording_model.dart';
 import 'package:evently_app/common/widgets/custom_onbording_page.dart';
 import 'package:evently_app/gen/assets.gen.dart';
-import 'package:evently_app/theme/app_color.dart';
+ 
 import 'package:evently_app/views/screens/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 

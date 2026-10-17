@@ -1,4 +1,4 @@
-import 'package:evently_app/theme/app_color.dart';
+import 'package:evently_app/common/theme/app_color.dart';
 import 'package:evently_app/views/screens/event_screen.dart';
 import 'package:evently_app/views/tabs/favorite_screen.dart';
 import 'package:evently_app/views/tabs/home_screen.dart';

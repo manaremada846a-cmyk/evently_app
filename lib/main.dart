@@ -1,5 +1,5 @@
 import 'package:evently_app/firebase_options.dart';
-import 'package:evently_app/theme/app_theme.dart';
+import 'package:evently_app/common/theme/app_theme.dart';
 import 'package:evently_app/views/screens/auth/forget_password.dart';
 import 'package:evently_app/views/screens/auth/login_screen.dart';
 import 'package:evently_app/views/screens/auth/register_screen.dart';
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 bool isLoading(){
   return  FirebaseAuth.instance.currentUser == null?false:true;
-
+ 
 }
   @override
   
@@ -39,7 +39,7 @@ bool isLoading(){
        OnBordingScreen.appRoute:(context) => OnBordingScreen(),
        TabsScreen.appRoute:(context) =>  TabsScreen(),
       EventScreen .appRoute:(context) => EventScreen(),
-    },initialRoute:EventScreen.appRoute ,
+    },initialRoute:SplashScreen.appRoute ,
   // home:isLoading()? HomeScreen(): LoginScreen(),
    //TODO
    );

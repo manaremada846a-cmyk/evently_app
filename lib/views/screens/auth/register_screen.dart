@@ -1,10 +1,11 @@
+import 'package:evently_app/common/theme/app_color.dart';
 import 'package:evently_app/gen/assets.gen.dart';
 import 'package:evently_app/model/user_model.dart';
  import 'package:evently_app/services/firebase_auth_service.dart';
-import 'package:evently_app/theme/app_color.dart';
+ 
 import 'package:evently_app/common/widgets/custom_login_text_filed.dart';
 import 'package:evently_app/views/screens/tabs_screen.dart';
-import 'package:evently_app/views/tabs/home_screen.dart';
+ 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

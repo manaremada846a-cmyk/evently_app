@@ -1,4 +1,4 @@
-import 'package:evently_app/theme/app_color.dart';
+import 'package:evently_app/common/theme/app_color.dart';
 import 'package:flutter/material.dart';
 
 class HeaderBottomCards extends StatelessWidget {

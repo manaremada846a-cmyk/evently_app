@@ -1,6 +1,6 @@
 import 'package:evently_app/common/widgets/header_bottom_cards.dart';
 import 'package:evently_app/gen/assets.gen.dart';
-import 'package:evently_app/theme/app_color.dart';
+import 'package:evently_app/common/theme/app_color.dart';
 import 'package:flutter/material.dart';
 
 class EventScreen extends StatefulWidget {
