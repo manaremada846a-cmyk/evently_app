@@ -6,6 +6,8 @@ import 'package:evently_app/common/widgets/custom_onbording_page.dart';
 import 'package:evently_app/gen/assets.gen.dart';
  
 import 'package:evently_app/views/screens/auth/login_screen.dart';
+import 'package:evently_app/views/screens/tabs_screen.dart';
+import 'package:evently_app/views/tabs/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class OnBordingScreen extends StatefulWidget {
@@ -135,7 +137,7 @@ void dispose() {
                   } else {
                     Navigator.pushReplacementNamed(
                       context,
-                      LoginScreen.appRoute,
+                      TabsScreen.appRoute,
                     );
                   }
                 },

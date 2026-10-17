@@ -1,73 +1,37 @@
 import 'package:evently_app/common/widgets/custom_event_card.dart';
- import 'package:evently_app/gen/assets.gen.dart';
-
-import 'package:evently_app/model/event_card_model.dart';
-
+import 'package:evently_app/providers/events_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class FavoriteScreen extends StatefulWidget {
+class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({super.key});
 
   @override
-  State<FavoriteScreen> createState() => _FavoriteScreenState();
-}
-
-class _FavoriteScreenState extends State<FavoriteScreen> {
-  List<EventCardModel> events = [
-    EventCardModel(
-      getImageunder: Assets.images.sport2.path,
-      getImage: Assets.images.sportboy.path,
-      date: "data",
-      discribtion: "mmmmmmmmmmmm",
-      isFav: true,
-    ),
-    EventCardModel(
-      getImageunder: Assets.images.sport2.path,
-      getImage: Assets.images.sportboy.path,
-      date: "data",
-      discribtion: "mmmmmmmmmmmm",
-      isFav: true,
-    ),
-    EventCardModel(
-      getImageunder: Assets.images.sport2.path,
-      getImage: Assets.images.sportboy.path,
-      date: "data",
-      discribtion: "mmmmmmmmmmmm",
-      isFav: true,
-    ),EventCardModel(
-      getImageunder: Assets.images.sport2.path,
-      getImage: Assets.images.sportboy.path,
-      date: "data",
-      discribtion: "mmmmmmmmmmmm",
-      isFav: true,)
-  ];
-
-  @override
   Widget build(BuildContext context) {
-    ThemeData them = Theme.of(context);
+    final them = Theme.of(context);
+    final events = context.watch<EventsProvider>().favorites;
+
     return Scaffold(
-      body: Column( 
+      body: Column(
         children: [
           SafeArea(
-            child: SizedBox(width: 380,
-              child: TextFormField(onTapUpOutside: (event) {
-                    FocusScope.of(context).unfocus();
-                  },
-  
+            child: SizedBox(
+              width: 380,
+              child: TextFormField(
+                onTapUpOutside: (event) {
+                  FocusScope.of(context).unfocus();
+                },
                 decoration: InputDecoration(
                   hintText: 'Search for event',
                   hintStyle: TextStyle(
-                    color:them.hintColor,
+                    color: them.hintColor,
                     fontSize: 14,
-                    fontWeight: FontWeight.w500
+                    fontWeight: FontWeight.w500,
                   ),
-                  suffixIcon: Icon(
-                    Icons.search,
-                    color: them.primaryColor,
-                  ),
+                  suffixIcon: Icon(Icons.search, color: them.primaryColor),
                   filled: true,
-                  fillColor: Colors.white,
-                  contentPadding: EdgeInsets.symmetric(
+                  fillColor: them.cardColor,
+                  contentPadding: const EdgeInsets.symmetric(
                     vertical: 12,
                     horizontal: 16,
                   ),
@@ -81,26 +45,27 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
-                    borderSide: BorderSide(
-                      color: them.focusColor,
-                      width: 1,
-                    ),
+                    borderSide: BorderSide(color: them.focusColor, width: 1),
                   ),
                 ),
               ),
             ),
           ),
           Expanded(
-            child: ListView.separated(
-              itemCount: events.length,
-              itemBuilder: (BuildContext context, int index) {
-                final event = events[index];
-                return CustomEventCard(event: event);
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return SizedBox(height: 15);
-              },
-            ),
+            child: events.isEmpty
+                ? Center(
+                    child: Text(
+                      'No favorite events yet',
+                      style: them.textTheme.bodyLarge,
+                    ),
+                  )
+                : ListView.separated(
+                    itemCount: events.length,
+                    itemBuilder: (context, index) =>
+                        CustomEventCard(event: events[index]),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 15),
+                  ),
           ),
         ],
       ),

@@ -1,15 +1,23 @@
+
+ 
 class EventCardModel {
-  String getImageunder;
-  String getImage;
-  String date;
+  final String title;
+  final String category;
+  final String getImageunder;
+  final String getImage;
+  final String date;
+  final String discribtion;
   bool isFav;
-  String discribtion;
-  
+ 
   EventCardModel({
+    required this.title,
+    required this.category,
     required this.getImageunder,
     required this.getImage,
     required this.date,
     required this.discribtion,
-    required this.isFav,
+    this.isFav = false,
   });
 }
+ 
+ 

@@ -1,6 +1,8 @@
 import 'package:evently_app/common/theme/app_color.dart';
 import 'package:evently_app/gen/assets.gen.dart';
+import 'package:evently_app/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CustomPage1 extends StatefulWidget {
   const CustomPage1({super.key});
@@ -11,11 +13,14 @@ class CustomPage1 extends StatefulWidget {
 
 class _CustomPage1State extends State<CustomPage1> {
   String selectedButon = "English";
-  String selectedIcon="sun";
+   
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final themeProvider=context.watch<ThemeProvider>();
+    final isDark=themeProvider.isDark;
+
     return Padding(
       padding: const EdgeInsets.all(15),
       child: Column(
@@ -143,7 +148,7 @@ class _CustomPage1State extends State<CustomPage1> {
                   child: FilledButton(
                     style: FilledButton.styleFrom(
                       padding: EdgeInsets.zero,
-                      backgroundColor:  selectedIcon=="sun"
+                      backgroundColor:  !isDark
                           ? theme.primaryColor
                           : theme.cardColor,
                       shape: RoundedRectangleBorder(
@@ -151,16 +156,15 @@ class _CustomPage1State extends State<CustomPage1> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    onPressed: () {
-                      setState(() {
-                        selectedIcon="sun";
-                      });
-                    },
-            child: Icon(Icons.wb_sunny, color:  selectedIcon=="sun"
-                           ? AppColors.whiteText
-                            : theme.hoverColor,size: 25,),
+                    onPressed: () =>
+
+                      themeProvider.changTheme(ThemeMode.light),                       
                     
-                  ),
+             child: Icon(
+    Icons.wb_sunny,
+    color: !isDark ? AppColors.whiteText : theme.hoverColor,
+    size: 25,
+             )),
                 ),
                 SizedBox(
                  width: 60,
@@ -168,7 +172,7 @@ class _CustomPage1State extends State<CustomPage1> {
                   child: FilledButton(
                     style: FilledButton.styleFrom(
                       padding: EdgeInsets.zero,
-                      backgroundColor:  selectedIcon=="mode"
+                      backgroundColor:  isDark
                           ? theme.primaryColor
                           : theme.cardColor,
                       shape: RoundedRectangleBorder(
@@ -176,17 +180,15 @@ class _CustomPage1State extends State<CustomPage1> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    onPressed: () {
-                      setState(() {
-                        selectedIcon="mode";
-                      });
-                    },
+                    onPressed:()=>
+                    themeProvider .changTheme(ThemeMode.dark),
+              
             
                     child: Transform.rotate(
                       angle:2.5,
                       child: Icon(Icons.mode_night_outlined
 
-                      , color:   selectedIcon=="mode"
+                      , color:   isDark
                              ? AppColors.whiteText
                               : theme.hoverColor,size: 25,),
                     ),

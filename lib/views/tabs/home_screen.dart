@@ -1,58 +1,36 @@
 import 'package:evently_app/common/widgets/custom_event_card.dart';
 import 'package:evently_app/common/widgets/custom_home_header.dart';
-import 'package:evently_app/gen/assets.gen.dart';
-
-import 'package:evently_app/model/event_card_model.dart';
-
+import 'package:evently_app/providers/events_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class HomeScreen extends StatefulWidget {
-  const new({super.key});
-  
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  List<EventCardModel> events = [
-    EventCardModel(
-      getImageunder: Assets.images.sport2.path,
-      getImage: Assets.images.sportboy.path,
-      date: "data",
-      discribtion: "mmmmmmmmmmmm",
-      isFav: true,
-    ), EventCardModel(
-      getImageunder: Assets.images.sport2.path,
-      getImage: Assets.images.sportboy.path,
-      date: "data",
-      discribtion: "mmmmmmmmmmmm",
-      isFav: true,
-    ), EventCardModel(
-      getImageunder: Assets.images.sport2.path,
-      getImage: Assets.images.sportboy.path,
-      date: "data",
-      discribtion: "mmmmmmmmmmmm",
-      isFav: true,
-    ),
-  ];
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final events = context.watch<EventsProvider>().events;
+
     return Scaffold(
       body: Column(
         children: [
-          CustomHomeHeader(),
+          const CustomHomeHeader(),
           Expanded(
-            child: ListView.separated(
-              itemCount: events.length,
-              itemBuilder: (BuildContext context, int index) {
-                final event = events[index];
-                return CustomEventCard(event: event);
-              }, separatorBuilder: (BuildContext context, int index) {return SizedBox(height: 15,) ;},
-            ),
-          )
-          , 
+            child: events.isEmpty
+                ? Center(
+                    child: Text(
+                      'No events yet',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  )
+                : ListView.separated(
+                    itemCount: events.length,
+                    itemBuilder: (context, index) =>
+                        CustomEventCard(event: events[index]),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 15),
+                  ),
+          ),
         ],
       ),
     );
