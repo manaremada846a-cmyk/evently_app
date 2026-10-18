@@ -1,22 +1,29 @@
-import 'package:evently_app/common/widgets/header_bottom_cards.dart';
 import 'package:evently_app/common/theme/app_color.dart';
+import 'package:evently_app/common/widgets/header_bottom_cards.dart';
+import 'package:evently_app/providers/events_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class CustomHomeHeader extends StatefulWidget implements PreferredSizeWidget {
+const List<(String, IconData)> _homeCategories = [
+  ('All', Icons.grid_view_rounded),
+  ('Book club', Icons.menu_book_rounded),
+  ('Sport', Icons.directions_bike_outlined),
+  ('Birthday', Icons.cake_outlined),
+  ('Meeting', Icons.meeting_room_outlined),
+  ('Exhibition', Icons.store),
+];
+
+class CustomHomeHeader extends StatelessWidget implements PreferredSizeWidget {
   const CustomHomeHeader({super.key});
 
   @override
   Size get preferredSize => const Size.fromHeight(200);
 
   @override
-  State<CustomHomeHeader> createState() => _CustomHomeHeaderState();
-}
-
-class _CustomHomeHeaderState extends State<CustomHomeHeader> {
-  String selectedCategory = 'All';
-
-  @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final provider = context.watch<EventsProvider>();
+
     return Padding(
       padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
       child: SafeArea(
@@ -34,9 +41,9 @@ class _CustomHomeHeaderState extends State<CustomHomeHeader> {
                       const Text('Welcome Back ✨'),
                       Text(
                         'name',
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        style: theme.textTheme.bodyLarge!.copyWith(
                           fontSize: 20,
-                          color: Theme.of(context).splashColor,
+                          color: theme.splashColor,
                         ),
                       ),
                     ],
@@ -51,7 +58,7 @@ class _CustomHomeHeaderState extends State<CustomHomeHeader> {
                         Icon(
                           Icons.wb_sunny_outlined,
                           size: 25,
-                          color: Theme.of(context).primaryColor,
+                          color: theme.primaryColor,
                         ),
                         SizedBox(
                           width: 32,
@@ -65,15 +72,14 @@ class _CustomHomeHeaderState extends State<CustomHomeHeader> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              backgroundColor: Theme.of(context).primaryColor,
+                              backgroundColor: theme.primaryColor,
                             ),
                             child: Text(
                               'EN',
-                              style: Theme.of(context).textTheme.headlineMedium!
-                                  .copyWith(
-                                    fontSize: 14,
-                                    color: AppColors.whiteText,
-                                  ),
+                              style: theme.textTheme.headlineMedium!.copyWith(
+                                fontSize: 14,
+                                color: AppColors.whiteText,
+                              ),
                             ),
                           ),
                         ),
@@ -83,87 +89,19 @@ class _CustomHomeHeaderState extends State<CustomHomeHeader> {
                 ],
               ),
               Expanded(
-                child: ListView(
+                child: ListView.separated(
                   scrollDirection: Axis.horizontal,
-                  children: [
-                    HeaderBottomCards(
-                      label: 'All',
-                      icon: Icons.grid_view_rounded,
-                      selected: selectedCategory == 'All',
-                      onSelected: () {
-                        setState(() {
-                          selectedCategory = 'All';
-                        });
-                      },
-                    ),
-                    const SizedBox(width: 5),
-                    HeaderBottomCards(
-                      label: 'Book club',
-                      icon: Icons.menu_book_rounded,
-                      selected: selectedCategory == 'Bookclub',
-                      onSelected: () {
-                        setState(() {
-                          selectedCategory = 'Bookclub';
-                        });
-                      },
-                    ),
-
-                    const SizedBox(width: 5),
-                    HeaderBottomCards(
-                      label: 'Sport',
-                      icon: Icons.directions_bike_outlined,
-                      selected: selectedCategory == 'Sport',
-                      onSelected: () {
-                        setState(() {
-                          selectedCategory = 'Sport';
-                        });
-                      },
-                    ),
-                    const SizedBox(width: 5),
-                    HeaderBottomCards(
-                      label: 'Birthday',
-                      icon: Icons.cake_outlined,
-                      selected: selectedCategory == 'Birthday',
-                      onSelected: () {
-                        setState(() {
-                          selectedCategory = 'Birthday';
-                        }); //Book club
-                      },
-                    ),
-                    const SizedBox(width: 5),
-                    HeaderBottomCards(
-                      label: 'Categories',
-                      icon: Icons.access_time_filled,
-                      selected: selectedCategory == 'Categories',
-                      onSelected: () {
-                        setState(() {
-                          selectedCategory = 'Categories';
-                        });
-                      },
-                    ),
-                    const SizedBox(width: 5),
-                    HeaderBottomCards(
-                      label: 'Meeting',
-                      icon: Icons.meeting_room_outlined,
-                      selected: selectedCategory == 'Meeting',
-                      onSelected: () {
-                        setState(() {
-                          selectedCategory = 'Meeting';
-                        });
-                      },
-                    ),
-                    const SizedBox(width: 5),
-                    HeaderBottomCards(
-                      label: 'Exhibition',
-                      icon: Icons.store,
-                      selected: selectedCategory == 'Exhibition',
-                      onSelected: () {
-                        setState(() {
-                          selectedCategory = 'Exhibition';
-                        });
-                      },
-                    ),
-                  ],
+                  itemCount: _homeCategories.length,
+                  separatorBuilder: (_, __) => const SizedBox(width: 5),
+                  itemBuilder: (context, i) {
+                    final (label, icon) = _homeCategories[i];
+                    return HeaderBottomCards(
+                      label: label,
+                      icon: icon,
+                      selected: provider.selectedCategory == label,
+                      onSelected: () => provider.changeCategory(label),
+                    );
+                  },
                 ),
               ),
             ],

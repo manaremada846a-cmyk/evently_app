@@ -1,6 +1,6 @@
 import 'package:evently_app/common/theme/app_color.dart';
 import 'package:evently_app/common/widgets/header_bottom_cards.dart';
-import 'package:evently_app/gen/assets.gen.dart';
+import 'package:evently_app/common/category_images.dart';
 import 'package:evently_app/model/event_card_model.dart';
 import 'package:evently_app/providers/add_event_provider.dart';
 import 'package:evently_app/providers/events_provider.dart';
@@ -13,6 +13,7 @@ const List<(String, IconData)> _categories = [
   ('Birthday', Icons.cake_outlined),
   ('Categories', Icons.access_time_filled),
   ('Meeting', Icons.meeting_room_outlined),
+  ('Exhibition', Icons.store),
 ];
 
 class EventScreen extends StatelessWidget {
@@ -23,6 +24,7 @@ class EventScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final provider = context.watch<AddEventProvider>();
+    final images = CategoryImages.of(provider.selectedCategory); // صورة الكارت اللي فوق بس
 
     return Scaffold(
       appBar: AppBar(
@@ -72,13 +74,13 @@ class EventScreen extends StatelessWidget {
                       left: 20,
                       right: 20,
                       child: Image.asset(
-                        Assets.images.sport2.path,
+                        images.under,
                         color: theme.hoverColor,
                       ),
                     ),
                     Center(
                       child: Image.asset(
-                        Assets.images.sportboy.path,
+                        images.main,
                         width: 130,
                       ),
                     ),
@@ -250,7 +252,7 @@ class EventScreen extends StatelessWidget {
                   height: 50,
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       final error = provider.validate();
                       if (error != null) {
                         ScaffoldMessenger.of(
@@ -258,22 +260,32 @@ class EventScreen extends StatelessWidget {
                         ).showSnackBar(SnackBar(content: Text(error)));
                         return;
                       }
-                      const months = [
-                        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
-                      ];
                       final d = provider.selectedDate!;
-                      context.read<EventsProvider>().addEvent(
-                        EventCardModel(
-                          title: provider.titleController.text.trim(),
-                          category: provider.selectedCategory,
-                          discribtion: provider.descController.text.trim(),
-                          date: '${d.day} ${months[d.month - 1]}',
-                          getImageunder: Assets.images.sport2.path,
-                          getImage: Assets.images.sportboy.path,
-                        ),
-                      );
-                      Navigator.pop(context);
+                      final t = provider.selectedTime!;
+                      final eventsProvider = context.read<EventsProvider>();
+                      final messenger = ScaffoldMessenger.of(context);
+                      final navigator = Navigator.of(context);
+                      try {
+                        await eventsProvider.addEvent(
+                          EventCardModel(
+                            title: provider.titleController.text.trim(),
+                            description: provider.descController.text.trim(),
+                            category: provider.selectedCategory,
+                            dateTime: DateTime(
+                              d.year,
+                              d.month,
+                              d.day,
+                              t.hour,
+                              t.minute,
+                            ),
+                          ),
+                        );
+                        navigator.pop();
+                      } catch (e) {
+                        messenger.showSnackBar(
+                          SnackBar(content: Text('Failed to add event: $e')),
+                        );
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: theme.primaryColor,

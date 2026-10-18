@@ -14,14 +14,33 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/Birthday.png
+  AssetGenImage get birthday =>
+      const AssetGenImage('assets/images/Birthday.png');
+
+  /// File path: assets/images/Book Club.png
+  AssetGenImage get bookClub =>
+      const AssetGenImage('assets/images/Book Club.png');
+
   /// File path: assets/images/EVENTLY.png
   AssetGenImage get evently => const AssetGenImage('assets/images/EVENTLY.png');
+
+  /// File path: assets/images/Exhibition.png
+  AssetGenImage get exhibition =>
+      const AssetGenImage('assets/images/Exhibition.png');
+
+  /// File path: assets/images/Exhibitionimage.png
+  AssetGenImage get exhibitionimage =>
+      const AssetGenImage('assets/images/Exhibitionimage.png');
 
   /// File path: assets/images/Google.png
   AssetGenImage get google => const AssetGenImage('assets/images/Google.png');
 
   /// File path: assets/images/Group.svg
   String get group => 'assets/images/Group.svg';
+
+  /// File path: assets/images/Meeting.png
+  AssetGenImage get meeting => const AssetGenImage('assets/images/Meeting.png');
 
   /// File path: assets/images/Route log01.png
   AssetGenImage get routeLog01 =>
@@ -39,11 +58,30 @@ class $AssetsImagesGen {
   AssetGenImage get sporttext =>
       const AssetGenImage('assets/images/Sporttext.png');
 
+  /// File path: assets/images/Techie (1).png
+  AssetGenImage get techie1 =>
+      const AssetGenImage('assets/images/Techie (1).png');
+
+  /// File path: assets/images/Techie.png
+  AssetGenImage get techie => const AssetGenImage('assets/images/Techie.png');
+
+  /// File path: assets/images/birthdayimag.png
+  AssetGenImage get birthdayimag =>
+      const AssetGenImage('assets/images/birthdayimag.png');
+
+  /// File path: assets/images/bookclubimage.png
+  AssetGenImage get bookclubimage =>
+      const AssetGenImage('assets/images/bookclubimage.png');
+
   /// File path: assets/images/eye-slash.svg
   String get eyeSlash => 'assets/images/eye-slash.svg';
 
   /// File path: assets/images/lock.svg
   String get lock => 'assets/images/lock.svg';
+
+  /// File path: assets/images/meetingimag.png
+  AssetGenImage get meetingimag =>
+      const AssetGenImage('assets/images/meetingimag.png');
 
   /// File path: assets/images/onbording1.png
   AssetGenImage get onbording1 =>
@@ -92,15 +130,25 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<dynamic> get values => [
+    birthday,
+    bookClub,
     evently,
+    exhibition,
+    exhibitionimage,
     google,
     group,
+    meeting,
     routeLog01,
     routeLog02,
     sport2,
     sporttext,
+    techie1,
+    techie,
+    birthdayimag,
+    bookclubimage,
     eyeSlash,
     lock,
+    meetingimag,
     onbording1,
     onbording2,
     onbording3,

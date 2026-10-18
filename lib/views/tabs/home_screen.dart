@@ -9,14 +9,17 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final events = context.watch<EventsProvider>().events;
+    final provider = context.watch<EventsProvider>();
+    final events = provider.filteredEvents;
 
     return Scaffold(
       body: Column(
         children: [
           const CustomHomeHeader(),
           Expanded(
-            child: events.isEmpty
+            child: provider.isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : events.isEmpty
                 ? Center(
                     child: Text(
                       'No events yet',
