@@ -17,10 +17,17 @@ class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
   static String appRoute = "LoginScreen";
 
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 class _LoginScreenState extends State<LoginScreen> {
+  
+   bool  get isLoading{
+  return  FirebaseAuth.instance.currentUser == null?false:true;
+ 
+}
+  
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
   final TextEditingController emailcontroller = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -50,6 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20),
                     child: CustomLoginTextFiled(
+                    
                      validator: (p0) {
   final email = p0?.trim() ?? '';
   if (email.isEmpty) {
@@ -65,6 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       isPassword: false,
                       context: context,
                       controller: emailcontroller,
+
                       label: "Enter your email",
                       prefix: Padding(
                         padding: const EdgeInsets.all(10),
@@ -137,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               if (!context.mounted) return;
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: Text(e.message ?? "Login failed"),
+                                  content: Text( "Login failed"),
                                 ),
                               );
                             } catch (e) {

@@ -24,8 +24,7 @@ class EventScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final provider = context.watch<AddEventProvider>();
-    final images = CategoryImages.of(provider.selectedCategory); // صورة الكارت اللي فوق بس
-
+    final images = CategoryImages.of(provider.selectedCategory); 
     return Scaffold(
       appBar: AppBar(
         leading: Padding(

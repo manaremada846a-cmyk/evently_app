@@ -28,6 +28,7 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme=Theme.of(context);
     return Scaffold(
       body: tabs[currentIndex],
       floatingActionButton: ClipRRect(
@@ -52,19 +53,19 @@ class _TabsScreenState extends State<TabsScreen> {
                 currentIndex = index;
               });
             },
-            items: const [
+            items: [
               BottomNavigationBarItem(
-                activeIcon: Icon(Icons.home),
-                icon: Icon(Icons.home_outlined),
+                activeIcon: Icon(Icons.home,color: theme.primaryColor,),
+                icon: const Icon(Icons.home_outlined),
                 label: 'Home',
               ),
-              BottomNavigationBarItem(
-                activeIcon: Icon(Icons.favorite),
+               BottomNavigationBarItem(
+                activeIcon: Icon(Icons.favorite,color: theme.primaryColor,),
                 icon: Icon(Icons.favorite_border),
                 label: 'Favorite',
               ),
-              BottomNavigationBarItem(
-                activeIcon: Icon(Icons.person),
+               BottomNavigationBarItem(
+                activeIcon: Icon(Icons.person,color: theme.primaryColor,),
                 icon: Icon(Icons.person_2_outlined),
                 label: 'Profile',
               ),

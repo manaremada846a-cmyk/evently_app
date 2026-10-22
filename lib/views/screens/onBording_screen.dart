@@ -7,7 +7,7 @@ import 'package:evently_app/gen/assets.gen.dart';
  
 import 'package:evently_app/views/screens/auth/login_screen.dart';
 import 'package:evently_app/views/screens/tabs_screen.dart';
-import 'package:evently_app/views/tabs/home_screen.dart';
+ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class OnBordingScreen extends StatefulWidget {
@@ -129,18 +129,34 @@ void dispose() {
                   ),
                 ),
                 onPressed: () {
-                  if (index < boarding.length) {
-                    controller!.nextPage(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                  } else {
-                    Navigator.pushReplacementNamed(
-                      context,
-                      TabsScreen.appRoute,
-                    );
+  if (index < boarding.length) {
+    controller!.nextPage(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+    return;
+  }
+
+  final user = FirebaseAuth.instance.currentUser;
+  print(user?.uid);
+print(user?.email);
+ //FirebaseAuth.instance.signOut();
+
+  if (user != null) {
+    Navigator.pushReplacementNamed(
+      context,
+      TabsScreen.appRoute,
+    );
+  } else {
+    Navigator.pushReplacementNamed(
+      context,
+      LoginScreen.appRoute,
+    );
+  }
+
+                   
                   }
-                },
+                ,
                 child: Text(
                   index == 0
                       ? "Let’s start"

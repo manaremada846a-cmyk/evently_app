@@ -168,7 +168,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(e.message ?? "Registration failed"),
+        content: Text("Registration failed"),
       ),
     );
   }

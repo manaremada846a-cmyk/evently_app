@@ -1,6 +1,9 @@
 import 'package:evently_app/common/theme/app_color.dart';
 import 'package:evently_app/common/widgets/header_bottom_cards.dart';
 import 'package:evently_app/providers/events_provider.dart';
+import 'package:evently_app/providers/theme_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+ 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,16 +16,26 @@ const List<(String, IconData)> _homeCategories = [
   ('Exhibition', Icons.store),
 ];
 
-class CustomHomeHeader extends StatelessWidget implements PreferredSizeWidget {
+class CustomHomeHeader extends StatefulWidget  {
   const CustomHomeHeader({super.key});
 
   @override
-  Size get preferredSize => const Size.fromHeight(200);
+  State<CustomHomeHeader> createState() => _CustomHomeHeaderState();
 
+}
+
+class _CustomHomeHeaderState extends State<CustomHomeHeader> {
+
+    final user= FirebaseAuth.instance.currentUser;
+    String? get name => user!.displayName;
+
+  
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final provider = context.watch<EventsProvider>();
+    ThemeProvider themeProvider=context.watch<ThemeProvider>();
+    bool isDark=themeProvider.isDark;
 
     return Padding(
       padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
@@ -39,8 +52,7 @@ class CustomHomeHeader extends StatelessWidget implements PreferredSizeWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text('Welcome Back ✨'),
-                      Text(
-                        'name',
+                      Text( user?.displayName ?? 'name',
                         style: theme.textTheme.bodyLarge!.copyWith(
                           fontSize: 20,
                           color: theme.splashColor,
@@ -55,10 +67,24 @@ class CustomHomeHeader extends StatelessWidget implements PreferredSizeWidget {
                       spacing: 10,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.wb_sunny_outlined,
-                          size: 25,
-                          color: theme.primaryColor,
+                        InkWell(
+                          onTap: (){
+if(isDark){
+  themeProvider.changTheme(ThemeMode.light);
+}else{
+   themeProvider.changTheme(ThemeMode.dark);
+}  
+                          },
+                          child:isDark?Transform.rotate(
+                            angle: 700,
+                            child: Icon(  Icons.mode_night_outlined,
+                              size: 25,
+                              color: theme.primaryColor,),
+                          ):  Icon(
+                            Icons.wb_sunny_outlined,
+                            size: 25,
+                            color: theme.primaryColor,
+                          ),
                         ),
                         SizedBox(
                           width: 32,

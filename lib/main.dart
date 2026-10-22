@@ -10,6 +10,7 @@ import 'package:evently_app/views/screens/event_screen.dart';
 import 'package:evently_app/views/screens/onBording_screen.dart';
 import 'package:evently_app/views/screens/tabs_screen.dart';
 import 'package:evently_app/views/screens/splash_screen.dart';
+ 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -51,11 +52,11 @@ bool isLoading(){
      ForgetPassword.appRoute:(context) => ForgetPassword(),
        OnBordingScreen.appRoute:(context) => OnBordingScreen(),
        TabsScreen.appRoute:(context) =>  TabsScreen(),
-      EventScreen .appRoute:(context) => ChangeNotifierProvider(create: (BuildContext context) { return AddEventProvider(); },
+       EventScreen .appRoute:(context) => ChangeNotifierProvider(create: (BuildContext context) { return AddEventProvider(); },
       child: EventScreen()),
-    },initialRoute:SplashScreen.appRoute ,
+    },initialRoute:TabsScreen.appRoute ,
   // home:isLoading()? HomeScreen(): LoginScreen(),
-   //TODO
+   
    );
     
   }

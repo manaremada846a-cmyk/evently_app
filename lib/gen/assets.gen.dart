@@ -107,6 +107,10 @@ class $AssetsImagesGen {
   AssetGenImage get passowrdImage =>
       const AssetGenImage('assets/images/passowrdImage.png');
 
+  /// File path: assets/images/profileRoute.png
+  AssetGenImage get profileRoute =>
+      const AssetGenImage('assets/images/profileRoute.png');
+
   /// File path: assets/images/routeimage.png
   AssetGenImage get routeimage =>
       const AssetGenImage('assets/images/routeimage.png');
@@ -155,6 +159,7 @@ class $AssetsImagesGen {
     onbording4,
     pageview2,
     passowrdImage,
+    profileRoute,
     routeimage,
     sms,
     splashImag2,

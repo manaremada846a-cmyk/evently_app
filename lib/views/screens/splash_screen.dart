@@ -1,6 +1,10 @@
 import 'package:evently_app/gen/assets.gen.dart';
+import 'package:evently_app/views/screens/auth/login_screen.dart';
 import 'package:evently_app/views/screens/onBording_screen.dart';
- import 'package:flutter/material.dart';
+import 'package:evently_app/views/screens/tabs_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+  import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -11,6 +15,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  
   @override
   void initState() {
      super.initState();
@@ -20,9 +25,34 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _goNext() async {
     await Future.delayed(Duration(seconds: 3));
-    if (!mounted) return;
-    //TODO check shered preference if onbording seen
-    Navigator.pushReplacementNamed(context, OnBordingScreen.appRoute);
+ final  prefs= await SharedPreferences.getInstance();
+ final bool seenOnboarding =
+        prefs.getBool('seenOnboarding') ?? false;
+
+    if (!seenOnboarding) {
+      if(!mounted)return;
+      Navigator.pushReplacementNamed(
+        context,
+        OnBordingScreen.appRoute,
+      );return;
+ }
+   final user= FirebaseAuth.instance.currentUser;
+   if(user==null){
+    if(!mounted)return;
+     Navigator.pushReplacementNamed(
+        context,
+       LoginScreen.appRoute
+      ); return;}
+
+      if(!mounted)return;
+        Navigator.pushReplacementNamed(
+        context,
+       TabsScreen.appRoute
+      );
+   
+
+
+
   }
 
   @override

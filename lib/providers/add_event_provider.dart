@@ -23,7 +23,7 @@ class AddEventProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// بترجع رسالة الخطأ لو في حاجة ناقصة، أو null لو كله تمام
+   
   String? validate() {
     if (titleController.text.trim().isEmpty) return 'Please enter a title';
     if (descController.text.trim().isEmpty) return 'Please enter a description';

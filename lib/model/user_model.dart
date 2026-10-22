@@ -1,5 +1,6 @@
  
 class UserModel {
+  
   String ?id;
     String ?name;
   String email;
@@ -13,9 +14,13 @@ class UserModel {
    "email": email
   };
  }
- static  UserModel fromJson( Map<String,dynamic> json){
-return   UserModel(email: json['email'], password: json['password'],name: json['name'],id:json['id']);
-
-   }
+ static UserModel fromJson(Map<String, dynamic> json) {
+  return UserModel(
+    id: json['id'],
+    name: json['name'],
+    email: json['email'] ?? '',
+    password: json['password'],
+  );
+}
 
 }

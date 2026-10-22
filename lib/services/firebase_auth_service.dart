@@ -30,7 +30,8 @@ class FirebaseAuthService {
           .createUserWithEmailAndPassword(
             email: user.email,
             password: user.password!,
-          );
+          );await credential.user?.updateDisplayName(user.name);
+          await credential.user?.reload();
 
       user.id = credential.user?.uid;
       await creatUser(user);
