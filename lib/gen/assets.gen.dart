@@ -73,6 +73,9 @@ class $AssetsImagesGen {
   AssetGenImage get bookclubimage =>
       const AssetGenImage('assets/images/bookclubimage.png');
 
+  /// File path: assets/images/ex.png
+  AssetGenImage get ex => const AssetGenImage('assets/images/ex.png');
+
   /// File path: assets/images/eye-slash.svg
   String get eyeSlash => 'assets/images/eye-slash.svg';
 
@@ -150,6 +153,7 @@ class $AssetsImagesGen {
     techie,
     birthdayimag,
     bookclubimage,
+    ex,
     eyeSlash,
     lock,
     meetingimag,

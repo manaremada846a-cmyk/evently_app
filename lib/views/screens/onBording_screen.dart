@@ -140,7 +140,7 @@ void dispose() {
   final user = FirebaseAuth.instance.currentUser;
   print(user?.uid);
 print(user?.email);
- //FirebaseAuth.instance.signOut();
+ FirebaseAuth.instance.signOut();
 
   if (user != null) {
     Navigator.pushReplacementNamed(

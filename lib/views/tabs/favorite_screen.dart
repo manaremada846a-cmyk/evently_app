@@ -1,5 +1,6 @@
 import 'package:evently_app/common/widgets/custom_event_card.dart';
 import 'package:evently_app/providers/events_provider.dart';
+import 'package:evently_app/providers/language_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,8 +11,9 @@ class FavoriteScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final them = Theme.of(context);
     final events = context.watch<EventsProvider>().favorites;
-
-    return Scaffold(
+     final languageProvider = context.watch<LanguageProvider>();
+    final isArabic = languageProvider.isArabic;
+        return Scaffold(
       body: Column(
         children: [
           SafeArea(
@@ -22,7 +24,7 @@ class FavoriteScreen extends StatelessWidget {
                   FocusScope.of(context).unfocus();
                 },
                 decoration: InputDecoration(
-                  hintText: 'Search for event',
+                  hintText: isArabic? 'ابحث عن فعالية':'Search for event',
                   hintStyle: TextStyle(
                     color: them.hintColor,
                     fontSize: 14,
@@ -55,7 +57,7 @@ class FavoriteScreen extends StatelessWidget {
             child: events.isEmpty
                 ? Center(
                     child: Text(
-                      'No favorite events yet',
+                      isArabic ?'لا توجد فعاليات مفضلة حتى الآن':'No favorite events yet',
                       style: them.textTheme.bodyLarge,
                     ),
                   )

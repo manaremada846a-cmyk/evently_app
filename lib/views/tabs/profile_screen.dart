@@ -1,4 +1,6 @@
 import 'package:evently_app/gen/assets.gen.dart';
+import 'package:evently_app/l10n/app_localizations.dart';
+import 'package:evently_app/providers/language_provider.dart';
 import 'package:evently_app/providers/theme_provider.dart';
 import 'package:evently_app/views/screens/auth/login_screen.dart';
 
@@ -25,6 +27,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ThemeData theme = Theme.of(context);
     final themeProvider = context.watch<ThemeProvider>();
     final isDark = themeProvider.isDark;
+     final languageProvider = context.watch<LanguageProvider>();
+
+    
+    final isArabic = languageProvider.isArabic;
+
+final l10n = AppLocalizations.of(context)!;
+    
+    //  
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -60,7 +70,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
             // Dark mode
             customContainer(
-              text: 'Dark mode',
+              text:l10n.darkMode,
               theme: theme,
               trailing: Switch(
                 value: isDark,
@@ -78,18 +88,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
             // Language
             customContainer(
-              text: 'Language',
+              text: l10n.language,
               theme: theme,
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                size: 23,
-                color: theme.primaryColor,
+              trailing: GestureDetector(
+                onTap: () {
+                  languageProvider.changeLanguage();
+                },
+                child: Icon(
+                  Icons.arrow_forward_ios,
+                  size: 23,
+                  color: theme.primaryColor,
+                ),
               ),
             ),
 
             // Logout
             customContainer(
-              text: 'Logout',
+              text: l10n.logout,
               theme: theme,
               trailing: InkWell(
                 onTap: () async {

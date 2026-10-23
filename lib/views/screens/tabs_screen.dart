@@ -1,5 +1,7 @@
 import 'package:evently_app/common/theme/app_color.dart';
+import 'package:evently_app/l10n/app_localizations.dart';
 import 'package:evently_app/providers/events_provider.dart';
+import 'package:evently_app/providers/language_provider.dart';
 import 'package:evently_app/views/screens/event_screen.dart';
 import 'package:evently_app/views/tabs/favorite_screen.dart';
 import 'package:evently_app/views/tabs/home_screen.dart';
@@ -29,7 +31,10 @@ class _TabsScreenState extends State<TabsScreen> {
   @override
   Widget build(BuildContext context) {
     ThemeData theme=Theme.of(context);
-    return Scaffold(
+ 
+final languageProvider = context.watch<LanguageProvider>();
+final isArabic = languageProvider.isArabic;  
+  return Scaffold(
       body: tabs[currentIndex],
       floatingActionButton: ClipRRect(
         borderRadius: BorderRadius.circular(30),
@@ -53,25 +58,33 @@ class _TabsScreenState extends State<TabsScreen> {
                 currentIndex = index;
               });
             },
-            items: [
-              BottomNavigationBarItem(
-                activeIcon: Icon(Icons.home,color: theme.primaryColor,),
-                icon: const Icon(Icons.home_outlined),
-                label: 'Home',
-              ),
-               BottomNavigationBarItem(
-                activeIcon: Icon(Icons.favorite,color: theme.primaryColor,),
-                icon: Icon(Icons.favorite_border),
-                label: 'Favorite',
-              ),
-               BottomNavigationBarItem(
-                activeIcon: Icon(Icons.person,color: theme.primaryColor,),
-                icon: Icon(Icons.person_2_outlined),
-                label: 'Profile',
-              ),
-            ],
-          ),
-        ),
+           items: [
+  BottomNavigationBarItem(
+    activeIcon: Icon(
+      Icons.home,
+      color: theme.primaryColor,
+    ),
+    icon: const Icon(Icons.home_outlined),
+    label: isArabic ? 'الرئيسية' : 'Home',
+  ),
+  BottomNavigationBarItem(
+    activeIcon: Icon(
+      Icons.favorite,
+      color: theme.primaryColor,
+    ),
+    icon: const Icon(Icons.favorite_border),
+    label: isArabic ? 'المفضلة' : 'Favorite',
+  ),
+  BottomNavigationBarItem(
+    activeIcon: Icon(
+      Icons.person,
+      color: theme.primaryColor,
+    ),
+    icon: const Icon(Icons.person_2_outlined),
+    label: isArabic ? 'الملف الشخصي' : 'Profile',
+  ),
+],
+          ))
       ),
     );
   }

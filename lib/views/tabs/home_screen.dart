@@ -1,6 +1,7 @@
 import 'package:evently_app/common/widgets/custom_event_card.dart';
 import 'package:evently_app/common/widgets/custom_home_header.dart';
 import 'package:evently_app/providers/events_provider.dart';
+import 'package:evently_app/providers/language_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,6 +12,11 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = context.watch<EventsProvider>();
     final events = provider.filteredEvents;
+     final languageProvider = context.watch<LanguageProvider>();
+
+ 
+    final isArabic = languageProvider.isArabic;
+
 
     return Scaffold(
       body: Column(
@@ -22,7 +28,7 @@ class HomeScreen extends StatelessWidget {
                 : events.isEmpty
                 ? Center(
                     child: Text(
-                      'No events yet',
+                     isArabic?'لا توجد فاعليات حتي الآن': 'No events yet',
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   )

@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _goNext() async {
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(Duration(seconds: 20));
  final  prefs= await SharedPreferences.getInstance();
  final bool seenOnboarding =
         prefs.getBool('seenOnboarding') ?? false;
@@ -37,7 +37,9 @@ class _SplashScreenState extends State<SplashScreen> {
       );return;
  }
    final user= FirebaseAuth.instance.currentUser;
+  
    if(user==null){
+ 
     if(!mounted)return;
      Navigator.pushReplacementNamed(
         context,
